@@ -15,12 +15,10 @@ import time
 import os
 import sys
 from pyfiglet import Figlet
-import time
 import requests
 import random
 from discord.ext.commands import CommandNotFound
 from pypresence import Presence
-import time
 import psutil 
 import ctypes
 import cryptography
