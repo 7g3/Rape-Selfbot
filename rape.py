@@ -15,15 +15,15 @@ import time
 import os
 import sys
 from pyfiglet import Figlet
+import time
 import requests
 import random
 from discord.ext.commands import CommandNotFound
 from pypresence import Presence
+import time
 import psutil 
 import ctypes
 import cryptography
-
-
 from discord.ext import commands, tasks
 
 def clear():
@@ -168,7 +168,7 @@ async def help(ctx, help):
         embed= discord.Embed(color= 0x34495E, title= "Commands",timestamp=datetime.utcfromtimestamp(time.time()))
         embed.set_thumbnail(url="https://i.imgur.com/t6NHYp5.jpeg")
         embed.set_footer(text=" RapeV1")
-        embed.add_field(name="messages", value= "purge, deleteall", inline=False)
+        embed.add_field(name="messages", value= "purge, deleteall, av", inline=False)
         embed.add_field(name="malicious", value="webhookinfo, delhook, sendhook", inline=False)
         embed.add_field(name="networking", value="iplookup, ping", inline=False)
         embed.add_field(name="Fun", value="kiss, hug, dafloppa, btc, mommy, leet", inline=False)
@@ -223,7 +223,7 @@ async def info(ctx):
 async def kiss(ctx): 
     await ctx.message.delete()
     r = requests.get("https://neko-love.xyz/api/v1/kiss")
-    res = r.json()
+    
     em = discord.Embed()
     em.set_image(url=res['url'])
     await ctx.send(embed=em)
@@ -247,6 +247,14 @@ async def mommy(rape, amount: int):
       await mommy.edit(content='Sorry.')
       await asyncio.sleep(1)
       await mommy.edit(content='Mommy?')
+
+@bot.command(aliases=['avatar '])
+async def av(ctx, *, member: discord.Member = None):
+    await ctx.message.delete()
+    embed = discord.Embed(title=f"{member}'s avatar",color= 0x6495ED)
+    avatarurl = member.avatar_url
+    embed.set_image(url=avatarurl)
+    await ctx.send(embed=embed)
 
 @bot.command()
 async def ping(ctx):
@@ -484,7 +492,7 @@ if rich_presence:
     try:
         rpc = Presence(client_id='900216197000359986')
         rpc.connect()
-        rpc.update(details='RapeV1 made by Xraq.', large_image='avatar')
+        rpc.update(details='RapeV1 made by Xraq.', large_image='avatar', start=time.time())
     except Exception as e:
         print(f'')
         time.sleep(1)
