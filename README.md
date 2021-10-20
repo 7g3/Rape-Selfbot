@@ -7,5 +7,8 @@
 - Step 2: Configure your token into the setup 
 - Step 3: enjoy!
 
+## Option 2
+- Run the install.bat file (does pretty much everything for you)
+
 
 # thanks for using RapeV1
