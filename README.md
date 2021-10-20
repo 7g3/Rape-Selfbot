@@ -11,4 +11,6 @@
 - Run the install.bat file (does pretty much everything for you)
 
 
+
+* massive credit to my friend caden for originally devloping this: https://github.com/i3gaps
 # thanks for using RapeV1
