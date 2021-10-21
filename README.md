@@ -1,6 +1,6 @@
 # Rape-Selfbot
 - Multi-Purpose discord selfbot
-* please keep note that i will be updating this probably just about everyday, the ping command is still in work but it will be fixed soon lmao
+* please keep note that i will be updating this probably just about everyday, as some commands dont fully work.
 
 ## Tutorial
 - Step 1: install the requirements from the requirements.txt folder via the command pip3 install -r requirements.txt
