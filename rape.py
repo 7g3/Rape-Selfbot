@@ -214,12 +214,6 @@ async def hookinfo(ctx, webhook):
     await ctx.send(embed=embed, delete_after=def_after)
 
 @bot.command()
-async def info(ctx):
-    await ctx.message.delete()
-    embed = discord.Embed(title='Info on RapeV!', description="RapeV1 was developed by https://github.com/moronnnn")
-    await ctx.send(embed=embed, delete_after=def_after)
-
-@bot.command()
 async def kiss(ctx): 
     await ctx.message.delete()
     r = requests.get("https://neko-love.xyz/api/v1/kiss")
