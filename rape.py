@@ -1,37 +1,22 @@
 import discord
 from discord.ext import commands
-from datetime import *
-from colorama import *
+from colorama import Fore
 import json
-import threading
-from tkinter import messagebox
-import tkinter
-root = tkinter.Tk()
-root.withdraw()
-from discord.ext import tasks
 import psutil
 import asyncio
-import time
+from datetime import * 
+import time 
 import os
 import sys
-from pyfiglet import Figlet
-import time
 import requests
 import random
-from discord.ext.commands import CommandNotFound
 from pypresence import Presence
-import time
 import psutil 
 import ctypes
-import cryptography
-from discord.ext import commands, tasks
-import base64
+from discord.ext import commands
 import sys
-from threading import Thread
 from itertools import cycle
-from urllib.request import urlopen
-import numpy 
-import webbrowser 
+import webbrowser
 
 
 
@@ -78,6 +63,9 @@ bot.remove_command("help")
 
 def banner():
     os.system('cls' if os.name == 'nt' else 'clear')
+    w = f'{Fore.WHITE}'
+    print(f'''{w}         *   *    .  *      .        .  *   .          *   *    .  *      .        .  *   .         *   *    .  *      .        .  *   .
+{w}   *  .  . *       *    .        .        .   *    ..  *    *            .      *   *         *   *    .  *      .        .  *   .'''+Fore.RESET)
     print()
     print(Fore.MAGENTA + f' ██████   █████  ██████  ███████ '.center(os.get_terminal_size().columns))
     print(Fore.MAGENTA + f' ██   ██ ██   ██ ██   ██ ██      '.center(os.get_terminal_size().columns))
@@ -100,7 +88,7 @@ async def on_command(ctx):
     print(f'{Fore.LIGHTWHITE_EX}[{Fore.CYAN}{current_time}{Fore.LIGHTWHITE_EX}] {Fore.CYAN}command used {Fore.LIGHTWHITE_EX}| {Fore.CYAN}{ctx.command.name}')
 
 @bot.event
-async def on_ready():
+async def on_connect():
     bot.loop.create_task(title())
     banner()
     
@@ -191,7 +179,6 @@ async def help(ctx, help):
         os.system("cls")
         print("""
         Help commands in the console for you aswell
-
         Information:
         Fun:
         - kiss
@@ -210,8 +197,7 @@ async def help(ctx, help):
         - restart
         """)
         input()
-        show_on()
-strbtc = 0 
+
 
     
 
@@ -220,7 +206,7 @@ async def hookinfo(ctx, webhook):
     await ctx.message.delete()
     r = requests.get(webhook).json()
     embed = discord.Embed(title='webhook info', description=f'name: {r["name"]}\navatar: {r["avatar"]}\nID: {r["id"]}\nchannel id: {r["channel_id"]}\nguild id: {r["guild_id"]}\ntoken: {r["token"]}', color=0x6495ED)
-    await ctx.send(embed=embed, delete_after=def_after)
+    await ctx.send(embed=embed, delete_after=del_after)
 
 @bot.command()
 async def info(ctx):
@@ -239,7 +225,7 @@ async def kiss(ctx):
     r = requests.get("https://neko-love.xyz/api/v1/kiss")
     
     em = discord.Embed()
-    em.set_image(url=res['url'])
+    em.set_image(url=r['url'])
     await ctx.send(embed=em)
 
 @bot.command()
@@ -334,14 +320,9 @@ async def av(ctx, *, member: discord.Member = None):
     await ctx.send(embed=embed)
 
 @bot.command()
-async def ping(ctx, ip):
-    await ctx.message.delete()
-    await ctx.send(pingip(ip), delete_after=val)
-
-@bot.command()
 async def iplookup(ctx, ip: str=None):
     await ctx.message.delete()
-    if ip is None: await ctx.send("Please sepcify an IP address");return
+    if ip is None: await ctx.send("Please specify an IP address");return
     else:
         try:
             with requests.session() as ses:
@@ -362,7 +343,7 @@ async def iplookup(ctx, ip: str=None):
                         embed.add_field(name=f'Postal', value=f'{j["postal"]}', inline=False)
                         embed.add_field(name=f'Timezone', value=f'{j["timezone"]}', inline=False)
                         embed.add_field(name=f'Organization', value=f'{j["org"]}', inline=False)
-                        embed.set_footer(text=" RapeV1")
+                        embed.set_footer(text="RapeV1")
                         await ctx.send(embed=embed)
                     except discord.HTTPException:
                         await ctx.send(f'**{ip} Info**\n\nCity: {j["city"]}\nRegion: {j["region"]}\nCountry: {j["country"]}\nCoordinates: {j["loc"]}\nPostal: {j["postal"]}\nTimezone: {j["timezone"]}\nOrganization: {j["org"]}')
@@ -383,17 +364,6 @@ async def dafloppa(rape):
     await rape.message.delete()
     message = await rape.send('''fuck bitches get floppa''')
     await rape.send('https://pbs.twimg.com/media/Epe8jZ2WwAMSk2b.jpg')
-    await ctx.send(embed=embed)
-
-@bot.command(usage='btc', description='Check Bitcoin Price!')
-async def btc(rape):
-    await rape.message.delete()
-    r = requests.get("https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD")
-    r = r.json()
-    usd = r["USD"]
-    embed = discord.Embed(description=f"```${str(usd)}```", color=RandomColor())
-    embed.set_author(name="Bitcoin", icon_url="https://cdn.pixabay.com/photo/2013/12/08/12/12/bitcoin-225079_960_720.png")
-    await rape.send(embed=embed)
 
 @bot.command()
 async def leet(ctx, *, message: str=None):
@@ -515,8 +485,8 @@ async def sendhook(ctx, webhook, *, message):
 async def snipe(ctx):
     await ctx.message.delete()
     currentChannel = ctx.channel.id
-    if currentChannel in client.sniped_message_dict:
-        await ctx.send(f'{client.sniped_message_dict[currentChannel]}')
+    if currentChannel in bot.sniped_message_dict:
+        await ctx.send(f'{bot.sniped_message_dict[currentChannel]}')
     else:
         await ctx.send('There are no messages no snipe!', delete_after=3)
 
