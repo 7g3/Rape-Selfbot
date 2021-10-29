@@ -165,14 +165,14 @@ async def help(ctx, help):
         embed= discord.Embed(color= 0x34495E, title= "Commands",timestamp=datetime.utcfromtimestamp(time.time()))
         embed.set_thumbnail(url="https://i.imgur.com/t6NHYp5.jpeg")
         embed.set_footer(text=" RapeV1")
-        embed.add_field(name="messages", value= "purge, deleteall, av, purgehac, spam, snipe", inline=False)
-        embed.add_field(name="malicious", value="webhookinfo, delhook, sendhook, purgehack, rape, masschannel, massrole, tokenfuck, crash, masskick, banall", inline=False)
-        embed.add_field(name="networking", value="iplookup, ping", inline=False)
-        embed.add_field(name="Fun", value="kiss, hug, dafloppa, btc, mommy, leet, dankmemerfarm", inline=False)
-        embed.add_field(name="NSFW", value="hentai, lesbian", inline=False)
-        embed.add_field(name="selfbot", value="clear, restart, logout", inline=False)
-        embed.add_field(name="Moderation", value="ban, kick, unban, nuke", inline=False)
-        embed.add_field(name="Info", value="shows info on the selfbot", inline=False)
+        embed.add_field(name="messages", value= "message commands", inline=False)
+        embed.add_field(name="malicious", value="malicious/nuking commands", inline=False)
+        embed.add_field(name="networking", value="network commands", inline=False)
+        embed.add_field(name="Fun", value="fun commands", inline=False)
+        embed.add_field(name="NSFW", value=" :wink: :wink: ", inline=False)
+        embed.add_field(name="selfbot", value="selfbot client commands", inline=False)
+        embed.add_field(name="Moderation", value="mod commands", inline=False)
+        embed.add_field(name="selfbotinfo", value="selfbot info", inline=False)
         await ctx.send(embed=embed)
     except:
         await ctx.send("Error: this command does not have embed permissions check the console for the list")
@@ -198,6 +198,114 @@ async def help(ctx, help):
         - restart
         """)
         input()
+
+@bot.command()
+async def fun(ctx):
+    await ctx.message.delete()
+    embed= discord.Embed(color= 0x34495E, title= "Fun commands",timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/ZFjdBwP.jpg")
+    embed.add_field(name="kiss", value="will send a kiss gif", inline=False)
+    embed.add_field(name="hug", value="will send a hug gif", inline=False)
+    embed.add_field(name="dafloppa", value="dafloppa.", inline=False)
+    embed.add_field(name="mommy", value="Mommy? Sorry.", inline=False)
+    embed.add_field(name="leet", value="will send message in 1337 (leet)", inline=False)
+    embed.add_field(name="dankmemerfarm", value="***BEING WORKED ON***", inline=False)
+    embed.set_footer(text=" RapeV1")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def messages(ctx):
+    await ctx.message.delete()
+    embed= discord.Embed(color= 0x34495E, title= "message commands",timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/MC8TwBt.jpg")
+    embed.add_field(name="purge", value="will purge a specified number of messages", inline=False)
+    embed.add_field(name="deleteall", value="will delete every single message youve sent in the DM/guild", inline=False)
+    embed.add_field(name="av", value="will send the specificed users avatar", inline=False)
+    embed.add_field(name="purgehack", value="will send a massive blank space clearing the chat", inline=False)
+    embed.add_field(name="spam", value="will send a certain message with a specific value multiple times", inline=False)
+    embed.add_field(name="snipe", value="will send the most recent deleted message in chat", inline=False)
+    embed.set_footer(text=" RapeV1")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def malicious(ctx):
+    await ctx.message.delete()
+    embed= discord.Embed(color= 0x34495E, title= "malicious commands",timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/RglevHF.jpg")
+    embed.add_field(name = "IMPORTANT!!!", value= "***PLEASE KEEP NOTE THAT THESE COMMANDS ARE USED TO NUKE SERVERS WHICH COULD EASILY RESULT AN ACCOUNT TERMINATION IF USED BLATENLY, USE AT YOUR OWN RISK***", inline=False)
+    embed.add_field(name="webhookinfo", value="will show info on the specified webhook", inline=False)
+    embed.add_field(name="delhook", value="will delete the specified webhook", inline=False)
+    embed.add_field(name="sendhook", value="will send a message from the specified webhook", inline=False)
+    embed.add_field(name="rape", value="deletes all channels, changes server name and bans as many users in the guild as possible", inline=False)
+    embed.add_field(name="masschannel", value="will make 250 channels named ***raped*** (can be changed in the code)", inline=False)
+    embed.add_field(name="massrole", value="will make 100 roles named ***nuked by xraq*** (can be changed in the code)", inline=False)
+    embed.add_field(name="tokenfuck", value="will absolutely shti on someones account via token (fill servers change status unadd friends cycle themes etc etc)", inline=False)
+    embed.add_field(name="crash", value="will send a fuck ton of emojis/symbols to lag someones discord/possibly crash it if enough was sent", inline=False)
+    embed.add_field(name="masskick", value="will kick all the users in the guild", inline=False)
+    embed.add_field(name="banall", value="will ban all the users in the guild", inline=False)
+    embed.set_footer(text=" RapeV1")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def networking(ctx):
+    await ctx.message.delete()
+    embed= discord.Embed(color= 0x34495E, title= "networking commands",timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/b3Vv2nq.jpg")
+    embed.add_field(name="ping", value="pings specific IP via ICMP", inline=False)
+    embed.add_field(name="iplookup", value="will look up an IPs city, region, country, coords, postal, timezone and organization", inline=False)
+    embed.set_footer(text=" RapeV1")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def nsfw(ctx):
+    await ctx.message.delete()
+    embed= discord.Embed(color= 0x34495E, title= "NSFW commands",timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/EWzyaDp.jpg")
+    embed.add_field(name="lesbian", value="will send lesbian hentai (also very hot)", inline=False)
+    embed.add_field(name="hentai", value="will send a hentai gif (very hot)", inline=False)
+    embed.set_footer(text=" RapeV1")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def selfbot(ctx):
+    await ctx.message.delete()
+    embed= discord.Embed(color= 0x34495E, title= "selfbot client commands",timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/oLsIaYD.jpg")
+    embed.add_field(name="logout", value="will log you out of the selfbot causing it to close itself", inline=False)
+    embed.add_field(name="restart", value="will restart the selfbot (close it and open it)", inline=False)
+    embed.add_field(name="clear", value="will clear the selfbot console", inline=False)
+    embed.set_footer(text=" RapeV1")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def moderation(ctx):
+    await ctx.message.delete()
+    embed= discord.Embed(color= 0x34495E, title= "mod commands",timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/QRY7O2l.jpg")
+    embed.add_field(name="ban", value="bans a user from the guild ***MUST HAVE BAN PERMISSIONS***", inline=False)
+    embed.add_field(name="kick", value="kicks a user from the guild ***MUST HAVE KICK PERMISSIONS***", inline=False)
+    embed.add_field(name="unban", value="unbans a user from the guild ***MUST HAVE UNBAN PERMISSIONS***", inline=False)
+    embed.add_field(name="nuke", value="nukes the channel (deletes it and reputs it back where it was) ***MUST HAVE MANAGE SERVER PERMISSIONS***", inline=False)
+    embed.set_footer(text=" RapeV1")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def githubb(ctx):
+    await ctx.message.delete()
+    embed= discord.Embed(color= 0x34495E, title= "github",timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/QRY7O2l.jpg")
+    embed.add_field(name="github", value="will open my github via browser", inline=False)
+    embed.set_footer(text=" RapeV1")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def selfbotinfo(ctx):
+    await ctx.message.delete()
+    embed= discord.Embed(color= 0x34495E, title= "selfbot info",timestamp=datetime.utcfromtimestamp(time.time()))
+    embed.set_thumbnail(url="https://i.imgur.com/QRY7O2l.jpg")
+    embed.add_field(name="info", value="will give u base information on the selfbot", inline=False)
+    embed.set_footer(text=" RapeV1")
+    await ctx.send(embed=embed)
 
 
     
@@ -664,5 +772,4 @@ if rich_presence:
         time.sleep(1)
     
         
-
 bot.run(token, bot=False)
