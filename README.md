@@ -13,4 +13,5 @@
 
 
 * massive credit to my friend caden for originally developing this: https://github.com/i3gaps
+* feedback and suggestions are appreciated as i enjoy developing this
 # thanks for using RapeV1
