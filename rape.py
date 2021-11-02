@@ -165,6 +165,7 @@ async def help(ctx, help):
         embed= discord.Embed(color= 0x34495E, title= "Commands",timestamp=datetime.utcfromtimestamp(time.time()))
         embed.set_thumbnail(url="https://i.imgur.com/t6NHYp5.jpeg")
         embed.set_footer(text=" RapeV1")
+        embed.add_field(name=">catkiss", value= "best command on the selfbot", inline=False)
         embed.add_field(name=">messages", value= "message commands", inline=False)
         embed.add_field(name=">malicious", value="malicious/nuking commands", inline=False)
         embed.add_field(name=">networking", value="network commands", inline=False)
@@ -842,6 +843,12 @@ async def createdm(ctx, member: discord.Member=None):
         pass
     else:
         await member.create_dm()
+
+@bot.command()
+async def catkiss(ctx):
+    await ctx.message.delete()
+    await ctx.send("cat kiss")
+    await ctx.send("https://c.tenor.com/RiHiEx9u-r0AAAAC/cat-hug.gif")
 
 if rich_presence:
     try:
