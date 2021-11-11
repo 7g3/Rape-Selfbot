@@ -91,6 +91,17 @@ async def on_command(ctx):
 async def on_connect():
     bot.loop.create_task(title())
     banner()
+
+
+snipe_message_author = {}
+snipe_message_content = {}
+@bot.event
+async def on_message_delete(message):
+     snipe_message_author[message.channel.id] = message.author
+     snipe_message_content[message.channel.id] = message.content
+     await asyncio.sleep(60)
+     del snipe_message_author[message.channel.id]
+     del snipe_message_content[message.channel.id]
     
 
 async def title():
@@ -672,14 +683,15 @@ async def sendhook(ctx, webhook, *, message):
         embed = discord.Embed(description=f"sucessfully sent {message} to {webhook}", color=0x6495ED)
         await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(name = 'snipe')
 async def snipe(ctx):
-    await ctx.message.delete()
-    currentChannel = ctx.channel.id
-    if currentChannel in bot.sniped_message_dict:
-        await ctx.send(f'{bot.sniped_message_dict[currentChannel]}')
-    else:
-        await ctx.send('There are no messages no snipe!', delete_after=3)
+    channel = ctx.channel
+    try: 
+        em = discord.Embed(name = f"Last deleted message in #{channel.name}", description = snipe_message_content[channel.id], color=0x6495ED)
+        em.set_footer(text = f"This message was sent by {snipe_message_author[channel.id]}")
+        await ctx.send(embed = em)
+    except: 
+        await ctx.send(f"There are no recently deleted messages in #{channel.name}")
 
 
 @bot.command()
@@ -687,6 +699,7 @@ async def kickall(ctx):
     await ctx.message.delete()
     for member in ctx.guild.members:
         await member.kick()
+
 
 @bot.command()
 async def rape(ctx):
@@ -747,6 +760,7 @@ async def rape(ctx):
     os.system("cls")
     banner()
 
+
 @bot.command()
 async def github(ctx):
     await ctx.message.delete()
@@ -783,6 +797,7 @@ async def nuke(ctx, channel: discord.TextChannel = None):
         new_channel = await nuke_channel.clone(reason="Has been Nuked!")
         await nuke_channel.delete()
         await new_channel.send("channel was nuked successfully! :bomb: ")
+        await new_channel.send("https://c.tenor.com/24gGug50GqQAAAAC/nuke-nuclear.gif")
         await ctx.send("Nuked the Channel successfully!")
 
     else:
