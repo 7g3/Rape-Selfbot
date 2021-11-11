@@ -108,7 +108,7 @@ async def title():
     while True:
         cpuavg = psutil.cpu_percent(interval=1)
         mem = psutil.virtual_memory()[2]  
-        ctypes.windll.kernel32.SetConsoleTitleW(f'[Rape V1] connected to {bot.user.name} | MOTD: Fuck Niggers LOL | CPU @ {cpuavg}% | Memory @ {mem}%')
+        ctypes.windll.kernel32.SetConsoleTitleW(f'[Rape V1] connected to {bot.user.name} | MOTD: discord.gg/raid | CPU @ {cpuavg}% | Memory @ {mem}%')
         await asyncio.sleep(3)
 
 @bot.command()
