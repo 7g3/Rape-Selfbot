@@ -111,7 +111,7 @@ async def title():
         ctypes.windll.kernel32.SetConsoleTitleW(f'[Rape V1] connected to {bot.user.name} | MOTD: discord.gg/raid | CPU @ {cpuavg}% | Memory @ {mem}%')
         await asyncio.sleep(3)
 
-@bot.command()
+@bot.command(aliases=["cls"])
 async def clear(ctx):
     await ctx.message.delete()
     os.system("cls")
