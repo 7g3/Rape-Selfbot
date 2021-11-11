@@ -743,6 +743,7 @@ async def rape(ctx):
             print(f"{emoji.name} has been deleted in {ctx.guild.name}")
 
     print("Server raped successfully")
+    time.sleep(10)
     os.system("cls")
     banner()
 
