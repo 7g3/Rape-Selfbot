@@ -35,7 +35,7 @@ class rape:
                     "prefix": ">",
                     "color": "0x6495ed",
                     "del_after": 10,
-                    "footer": "rape v2",
+                    "footer": "rape v1",
                     "presense": "True"
                 }
                 json.dump(setup_data, fp, indent=4)
