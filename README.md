@@ -15,7 +15,8 @@
 - Run the install.bat file (does pretty much everything for you)
 
 
-
 * massive credit to my friend caden for originally developing this: https://github.com/i3gaps
 * feedback and suggestions are appreciated as i enjoy developing this
 # thanks for using RapeV1
+
+![alt text](https://media.discordapp.net/attachments/908254171814305792/908255447943897128/unknown.png?width=785&height=421)
