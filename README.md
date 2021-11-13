@@ -21,4 +21,4 @@
 * feedback and suggestions are appreciated as i enjoy developing this
 # thanks for using RapeV1
 
-![alt text](https://media.discordapp.net/attachments/908254171814305792/908255447943897128/unknown.png?width=785&height=421)
+![alt text](https://cdn.discordapp.com/attachments/908797003390128129/909161917606678538/unknown.png)
