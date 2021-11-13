@@ -1,5 +1,5 @@
 # Rape-Selfbot
-- Multi-Purpose discord selfbot
+## Multi-Purpose discord selfbot
 * please keep note that i will be updating this probably just about everyday.
 * ***all settings in the selfbot can be changed via the config (prefix, prefered color)***
 
