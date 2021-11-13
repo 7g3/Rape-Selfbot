@@ -475,6 +475,7 @@ async def iplookup(ctx, ip: str=None):
                         await ctx.send(f'**{ip} Info**\n\nCity: {j["city"]}\nRegion: {j["region"]}\nCountry: {j["country"]}\nCoordinates: {j["loc"]}\nPostal: {j["postal"]}\nTimezone: {j["timezone"]}\nOrganization: {j["org"]}')
         except Exception as e:
             await ctx.send(f"Error: {e}")
+            # skidripped this because it looked better than the one i was using lmao
 
 @bot.command()
 async def lesbian(ctx):
