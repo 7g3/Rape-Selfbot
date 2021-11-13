@@ -75,7 +75,9 @@ def banner():
     print(Fore.MAGENTA)
     print(Fore.MAGENTA)
     print(Fore.BLUE + f' credit: https://github.com/moronnnn '.center(os.get_terminal_size().columns))
-    print(Fore.BLUE + f' originally developed by: https://github.com/i3gaps '.center(os.get_terminal_size().columns))
+    print(Fore.CYAN + f' Status: Connected '.center(os.get_terminal_size().columns))
+    print(Fore.CYAN + f' Prefix: > '.center(os.get_terminal_size().columns))
+    print(Fore.CYAN + f' Account: {bot.user.name} '.center(os.get_terminal_size().columns))
     for i in range(os.get_terminal_size().columns):
         print(Fore.LIGHTWHITE_EX + '─', end='')
     
