@@ -5,6 +5,8 @@
 # **UPDATE**
 - updated rape command (nukes a server entirely, deletes channels bans all mass creates channels deletes roles emojis etc)
 - updated snipe command (sends most recently deleted message in an embed) ***was a pain in the fucking ass to do***
+- Changed interface 
+# Enjoy :)
 
 ## Tutorial
 - Step 1: install the requirements from the requirements.txt folder via the command pip3 install -r requirements.txt
