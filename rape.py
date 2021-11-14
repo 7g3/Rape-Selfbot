@@ -28,8 +28,8 @@ class rape:
         if not os.path.exists('./config.json'):
             clear()
             with open('./config.json', 'w') as fp:
-                print(f"{Fore.LIGHTWHITE_EX}[{Fore.LIGHTRED_EX}-{Fore.LIGHTWHITE_EX}] {Fore.LIGHTRED_EX}Welcome to the RapeV1 Setup, Enter your token below to get started.")
-                setup_token = input(Fore.LIGHTWHITE_EX +'>' + Fore.LIGHTRED_EX + ' token: ' + Fore.LIGHTWHITE_EX)
+                print(f"{Fore.LIGHTWHITE_EX}[{Fore.CYAN}-{Fore.LIGHTWHITE_EX}] {Fore.CYAN}Welcome to the RapeV1 Setup, Enter your token below to get started.")
+                setup_token = input(Fore.LIGHTWHITE_EX +'>' + Fore.BLUE + ' token: ' + Fore.BLUE)
                 setup_data = {
                     "token": setup_token,
                     "prefix": ">",
