@@ -28,8 +28,8 @@ class rape:
         if not os.path.exists('./config.json'):
             clear()
             with open('./config.json', 'w') as fp:
-                print(f"{Fore.LIGHTWHITE_EX}[{Fore.LIGHTRED_EX}-{Fore.LIGHTWHITE_EX}] {Fore.LIGHTRED_EX}Welcome to the setup.")
-                setup_token = input(Fore.LIGHTWHITE_EX +'>' + Fore.LIGHTRED_EX + ' Enter token: ' + Fore.LIGHTWHITE_EX)
+                print(f"{Fore.LIGHTWHITE_EX}[{Fore.LIGHTRED_EX}-{Fore.LIGHTWHITE_EX}] {Fore.LIGHTRED_EX}Welcome to the RapeV1 Setup, Enter your token below to get started.")
+                setup_token = input(Fore.LIGHTWHITE_EX +'>' + Fore.LIGHTRED_EX + ' token: ' + Fore.LIGHTWHITE_EX)
                 setup_data = {
                     "token": setup_token,
                     "prefix": ">",
@@ -76,7 +76,7 @@ def banner():
     print(Fore.MAGENTA)
     print(Fore.BLUE + f' credit: https://github.com/moronnnn '.center(os.get_terminal_size().columns))
     print(Fore.CYAN + f' Status: Connected '.center(os.get_terminal_size().columns))
-    print(Fore.CYAN + f' Prefix: > '.center(os.get_terminal_size().columns))
+    print(Fore.CYAN + f' Prefix: {prefix} '.center(os.get_terminal_size().columns))
     print(Fore.CYAN + f' Account: {bot.user.name} '.center(os.get_terminal_size().columns))
     for i in range(os.get_terminal_size().columns):
         print(Fore.LIGHTWHITE_EX + '─', end='')
@@ -87,7 +87,7 @@ def banner():
 async def on_command(ctx):
     dt = datetime.utcfromtimestamp(time.time())
     current_time = dt.strftime("%H:%M")
-    print(f'{Fore.LIGHTWHITE_EX}[{Fore.CYAN}{current_time}{Fore.LIGHTWHITE_EX}] {Fore.CYAN}command used {Fore.LIGHTWHITE_EX}| {Fore.CYAN}{ctx.command.name}')
+    print(f'{Fore.LIGHTWHITE_EX}[{Fore.CYAN}{current_time}{Fore.LIGHTWHITE_EX}] {Fore.BLUE}command used {Fore.LIGHTWHITE_EX}| {Fore.BLUE}{ctx.command.name}')
 
 @bot.event
 async def on_connect():
@@ -610,7 +610,6 @@ async def pussy(ctx):
             await ctx.send(file=discord.File(file, f"rape_pussy.gif"))
     except:
         em = discord.Embed(color= 0x6495ED)
-        embed.set_footer(text=" enjoy the hentai")
         em.set_image(url=res['url'])
         await ctx.send(embed=em)
         
@@ -628,7 +627,6 @@ async def anal(ctx):
             await ctx.send(file=discord.File(file, f"bot_anal.gif"))
     except:
         em = discord.Embed(color= 0x6495ED)
-        embed.set_footer(text=" enjoy the anal hentai")
         em.set_image(url=res['url'])
         await ctx.send(embed=em)
 
