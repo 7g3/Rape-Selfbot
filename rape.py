@@ -172,7 +172,7 @@ async def on_command_error(ctx, error):
         return
 
 @bot.command()
-async def help(ctx, help):
+async def help(ctx):
     await ctx.message.delete()
     try:
         embed= discord.Embed(color= 0x34495E, title= "Commands",timestamp=datetime.utcfromtimestamp(time.time()))
